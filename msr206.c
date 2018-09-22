@@ -13,7 +13,7 @@
 #include <string.h>
 
 #include "libmsr.h"
-#include "serialio.h"
+#include "usbio.h"
 #include "msr206.h"
 
 /* Thanks Club Mate and h1kari! Toorcon 10 */
@@ -575,7 +575,7 @@ int
 msr_reset (int fd)
 {
 	msr_cmd (fd, MSR_CMD_RESET);
-
+	usb_commit(fd);
 	usleep (100000);
 
 	return (0);

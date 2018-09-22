@@ -1,10 +1,12 @@
 # This currently builds a user space program and not a useful library
 
-CFLAGS=	-Wall -g -ansi -pedantic
-LDFLAGS= -L. -lmsr
+USBCFLAGS = `pkg-config --cflags libusb-1.0`
+USBLDFLAGS = `pkg-config --libs libusb-1.0`
+CFLAGS=	-Wall -g -std=c99 -pedantic $(USBCFLAGS)
+LDFLAGS= -L. -lmsr $(USBLDFLAGS)
 
 LIB=	libmsr.a
-LIBSRCS=	libmsr.c serialio.c msr206.c makstripe.c
+LIBSRCS=	libmsr.c usbio.c msr206.c makstripe.c
 LIBOBJS=	$(LIBSRCS:.c=.o)
 
 DAB=	dab
