@@ -8,11 +8,11 @@
 #include <termios.h>
 #include <err.h>
 #include <string.h>
-#include <ctype.h>
 
 #include "libmsr.h"
 #include "serialio.h"
 #include "msr206.h"
+#include "hexdump.h"
 
 int main(int argc, char * argv[])
 {
@@ -66,34 +66,8 @@ do {
 
         /* If we didn't get any data, don't do this next part */
 	for (i = 0; i < MSR_MAX_TRACKS; i++) {
-		int x;
-        int j;
-        uint8_t b;
 		printf("track%d: ", i);
-		for (x = 0; x < tracks.msr_tracks[i].msr_tk_len; x++) {
-		    b = tracks.msr_tracks[i].msr_tk_data[x];
-		    if (x % 16 == 0) {
-		        printf("\n    <%04x>: ", x);
-		    }
-			printf("%02x ", b);
-			if ((x + 1) % 16 == 0) {
-                printf("   ");
-                for (j = x - 15; j <= x; ++j) {
-                    b = tracks.msr_tracks[i].msr_tk_data[j];
-                    printf("%c", isprint(b) ? b : '.');
-                }
-			}
-		}
-		if (tracks.msr_tracks[i].msr_tk_len > 0) {
-            for(; (x % 16) != 0; ++x) {
-                printf("   ");
-            }
-            printf("   ");
-            for (j = x - 15; j <= x; ++j) {
-                b = tracks.msr_tracks[i].msr_tk_data[j];
-                printf("%c", isprint(b) ? b : '.');
-            }
-		}
+		hexdump(tracks.msr_tracks[i].msr_tk_data, tracks.msr_tracks[i].msr_tk_len);
 		printf("\n");
 	}
 } while (1);

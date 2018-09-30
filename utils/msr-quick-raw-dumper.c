@@ -12,6 +12,7 @@
 #include "libmsr.h"
 #include "serialio.h"
 #include "msr206.h"
+#include "hexdump.h"
 
 int main(int argc, char * argv[])
 {
@@ -67,10 +68,8 @@ do {
 
         /* If we didn't get any data, don't do this next part */
 	for (i = 0; i < MSR_MAX_TRACKS; i++) {
-		int x;
 		printf("track%d: ", i);
-		for (x = 0; x < tracks.msr_tracks[i].msr_tk_len; x++)
-			printf("%02x ", tracks.msr_tracks[i].msr_tk_data[x]);
+		hexdump(tracks.msr_tracks[i].msr_tk_data, tracks.msr_tracks[i].msr_tk_len);
 		printf("\n");
 	}
 } while (1);

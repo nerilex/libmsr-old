@@ -6,34 +6,34 @@ CFLAGS=	-I.. -Wall -g -std=c99 -pedantic $(USBCFLAGS)
 LDFLAGS= -L.. -lmsr $(USBLDFLAGS)
 
 ALLDEP=../libmsr.a
-
+ALLOBJS=hexdump.o
 MSRDEMO=	msr
 MSRDEMOSRCS=	msr.c
-MSRDEMOOBJS=	$(MSRDEMOSRCS:.c=.o)
+MSRDEMOOBJS=	$(MSRDEMOSRCS:.c=.o) $(ALLOBJS)
 
 MSRQUICKERASER=		msr-quick-eraser
-MSRQUICKERASEROBJS=	msr-quick-eraser.o
+MSRQUICKERASEROBJS=	msr-quick-eraser.o $(ALLOBJS)
 
 MSRQUICKISODUMPER=		msr-quick-iso-dumper
-MSRQUICKISODUMPEROBJS=		msr-quick-iso-dumper.o
+MSRQUICKISODUMPEROBJS=		msr-quick-iso-dumper.o $(ALLOBJS)
 
 MSRQUICKRAWDUMPER=		msr-quick-raw-dumper
-MSRQUICKRAWDUMPEROBJS=		msr-quick-raw-dumper.o
+MSRQUICKRAWDUMPEROBJS=		msr-quick-raw-dumper.o $(ALLOBJS)
 
 MAKSTRIPEQUICKCLONE=		makstripe-quick-clone
-MAKSTRIPEQUICKCLONEOBJS=	makstripe-quick-clone.o
+MAKSTRIPEQUICKCLONEOBJS=	makstripe-quick-clone.o $(ALLOBJS)
 
 MSRBARTDUMPER=		msr-bart-dumper
-MSRBARTDUMPEROBJS=		msr-bart-dumper.o
+MSRBARTDUMPEROBJS=		msr-bart-dumper.o $(ALLOBJS)
 
 FILEBITREVERSER=		file-bit-reverser
-FILEBITREVERSEROBJS=		file-bit-reverser.o
+FILEBITREVERSEROBJS=		file-bit-reverser.o $(ALLOBJS)
 
 FILEBITSHIFTER=		file-bit-shifter
-FILEBITSHIFTEROBJS=		file-bit-shifter.o
+FILEBITSHIFTEROBJS=		file-bit-shifter.o $(ALLOBJS)
 
 FILEFIELDVISUALIZER=		file-field-visualizer
-FILEFIELDVISUALIZEROBJS=		file-field-visualizer.o
+FILEFIELDVISUALIZEROBJS=		file-field-visualizer.o $(ALLOBJS)
 
 all:	$(MSRDEMO) $(MSRQUICKERASER) $(MSRQUICKISODUMPER) $(MSRQUICKRAWDUMPER) \
 	$(MAKSTRIPEQUICKCLONE) $(MSRBARTDUMPER) \
